@@ -1,0 +1,40 @@
+[application]
+
+name = "test-inputfile"
+out_dir = "target/dist"
+asset_dir = "public"
+
+[web.app]
+
+# HTML title tag content
+title = "test-inputfile"
+
+# include `assets` in web platform
+[web.resource]
+
+# Additional CSS style files
+style = []
+
+# Additional JavaScript files
+script = []
+
+[web.resource.dev]
+
+# Javascript code file
+# serve: [dev-server] only
+script = []
+
+[bundle]
+identifier = "org.omusubi.aki.nt.test_inputfile"
+publisher = "aki.akaguma"
+
+#icon = [
+#  # "icons/icon.ico"
+#  "assets/app.png",
+#  "assets/favicon.ico"
+#]
+
+copyright = "Copyright 2026 aki.akaguma"
+category = "Utility"
+short_description = "Test for input type=file"
+long_description = "Test for input type=file"
