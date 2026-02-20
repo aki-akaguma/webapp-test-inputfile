@@ -1,5 +1,5 @@
 [package]
-name = "webapp-test-inputfile"
+name = "test-inputfile"
 version = "0.1.0"
 authors = ["aki <aki.akaguma@hotmail.com>"]
 edition = "2021"
@@ -12,9 +12,14 @@ dioxus-logger = "0.7.3"
 console_error_panic_hook = "0.1"
 base64 = "0.22.1"
 
+[build-dependencies]
+rust-version-info-file = "0.2"
+
 [features]
 default = ["web"]
 web = ["dioxus/web"]
 desktop = ["dioxus/desktop"]
 mobile = ["dioxus/mobile"]
 server = ["dioxus/server"]
+
+debian_build = []

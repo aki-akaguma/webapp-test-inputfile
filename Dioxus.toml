@@ -28,11 +28,11 @@ script = []
 identifier = "org.omusubi.aki.nt.test_inputfile"
 publisher = "aki.akaguma"
 
-#icon = [
-#  # "icons/icon.ico"
-#  "assets/app.png",
-#  "assets/favicon.ico"
-#]
+icon = [
+  # "icons/icon.ico"
+  "assets/app.png",
+  "assets/favicon.ico"
+]
 
 copyright = "Copyright 2026 aki.akaguma"
 category = "Utility"

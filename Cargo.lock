@@ -4038,6 +4038,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "rust-version-info-file"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4f61f9ca64683b54015215337eccbe254c0154a9107c4b543aa60d1cec6476e9"
+
+[[package]]
 name = "rustc-hash"
 version = "1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4705,6 +4711,17 @@ dependencies = [
  "futf",
  "mac",
  "utf-8",
+]
+
+[[package]]
+name = "test-inputfile"
+version = "0.1.0"
+dependencies = [
+ "base64",
+ "console_error_panic_hook",
+ "dioxus",
+ "dioxus-logger",
+ "rust-version-info-file",
 ]
 
 [[package]]
@@ -5444,16 +5461,6 @@ checksum = "5a6580f308b1fad9207618087a65c04e7a10bc77e02c8e84e9b00dd4b12fa0bb"
 dependencies = [
  "js-sys",
  "wasm-bindgen",
-]
-
-[[package]]
-name = "webapp-test-inputfile"
-version = "0.1.0"
-dependencies = [
- "base64",
- "console_error_panic_hook",
- "dioxus",
- "dioxus-logger",
 ]
 
 [[package]]

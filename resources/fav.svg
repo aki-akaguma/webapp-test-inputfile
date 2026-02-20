@@ -1,0 +1,26 @@
+<svg width="250" height="250" viewBox="0 0 250 250" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Glow -->
+  <circle cx="125" cy="125" r="110" fill="#E1F5FE" />
+  
+  <!-- Mascot Body -->
+  <circle cx="125" cy="125" r="90" fill="#4FC3F7" stroke="#0288D1" stroke-width="4" />
+  
+  <!-- Antennas -->
+  <line x1="90" y1="50" x2="105" y2="75" stroke="#0288D1" stroke-width="4" stroke-linecap="round" />
+  <circle cx="85" cy="45" r="8" fill="#FF7043" />
+  <line x1="160" y1="50" x2="145" y2="75" stroke="#0288D1" stroke-width="4" stroke-linecap="round" />
+  <circle cx="165" cy="45" r="8" fill="#FF7043" />
+
+  <!-- Eyes -->
+  <circle cx="95" cy="115" r="18" fill="white" />
+  <circle cx="98" cy="112" r="8" fill="#333" />
+  <circle cx="155" cy="115" r="18" fill="white" />
+  <circle cx="152" cy="112" r="8" fill="#333" />
+
+  <!-- Smile -->
+  <path d="M 110 145 Q 125 160 140 145" stroke="#333" stroke-width="4" fill="none" stroke-linecap="round" />
+
+  <!-- Test Badge with 'T' (Path) -->
+  <rect x="85" y="155" width="80" height="80" rx="15" fill="#FF7043" />
+  <path d="M 100 170 H 150 V 182 H 131 V 220 H 119 V 182 H 100 Z" fill="white" />
+</svg>
