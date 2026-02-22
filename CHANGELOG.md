@@ -7,7 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
-* download link
+* download link: blob
+* download link: data
+* download link: asset file
 * resources and scripts
 
 
