@@ -1,5 +1,7 @@
 use dioxus::prelude::*;
 
+const APP_PNG: Asset = asset!("/assets/app.png");
+
 #[component]
 pub fn Test1() -> Element {
     let filename: Signal<String> = use_signal(String::new);
@@ -25,6 +27,12 @@ pub fn Test1() -> Element {
                 id: "ig1",
                 src: "{img_src}",
                 style: "max-width: 360px; margin-top: 20px; margin-left: 0;  margin-right: 0",
+            }
+            a {
+                id: "lnk1",
+                download: "app.png",
+                href: APP_PNG,
+                "Download"
             }
         }
     }
