@@ -12,6 +12,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * download link: asset file
 * resources and scripts
 
+### Changed
+* android-webview-assets template
+
+### Removed
+* android-webview-params.toml
+
 
 ## [0.1.0] (2026-02-19)
 ### Added

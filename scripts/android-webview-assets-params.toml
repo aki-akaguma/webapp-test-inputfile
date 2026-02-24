@@ -5,6 +5,7 @@ app_name = "TestInputfileWva"
 package_id = "org.omusubi.aki.wva.test_inputfile"
 version_code = "1"
 version_name = "0.1"
+load_url = "https://aki.omusubi.org/test-inputfile/"
 #
 compile_sdk_version = "36"
 target_sdk_version = "36"
