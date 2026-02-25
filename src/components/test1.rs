@@ -14,6 +14,7 @@ pub struct AnchorInfo {
     pub download: Option<String>,
     pub href: Option<String>,
 }
+
 #[cfg(feature = "desktop")]
 impl AnchorInfo {
     pub fn from_json_str(s: &str) -> Result<Self> {
@@ -22,17 +23,38 @@ impl AnchorInfo {
     }
 }
 
+#[derive(Debug, Clone, Copy)]
+struct Dp {
+    pub filename: Signal<String>,
+    pub size: Signal<String>,
+    pub content_type: Signal<String>,
+    pub mime_type: Signal<String>,
+    pub img_src: Signal<String>,
+    pub dl_data_fnm: Signal<String>,
+    pub dl_data_src: Signal<String>,
+    pub dl_data_msg: Signal<String>,
+    pub dl_blob_msg: Signal<String>,
+}
+
+impl Dp {
+    pub fn new() -> Self {
+        Self {
+            filename: use_signal(String::new),
+            size: use_signal(String::new),
+            content_type: use_signal(String::new),
+            mime_type: use_signal(String::new),
+            img_src: use_signal(String::new),
+            dl_data_fnm: use_signal(String::new),
+            dl_data_src: use_signal(String::new),
+            dl_data_msg: use_signal(String::new),
+            dl_blob_msg: use_signal(String::new),
+        }
+    }
+}
+
 #[component]
 pub fn Test1() -> Element {
-    let filename: Signal<String> = use_signal(String::new);
-    let size: Signal<String> = use_signal(String::new);
-    let content_type: Signal<String> = use_signal(String::new);
-    let mime_type: Signal<String> = use_signal(String::new);
-    let img_src: Signal<String> = use_signal(String::new);
-    let dl_data_fnm: Signal<String> = use_signal(String::new);
-    let dl_data_src: Signal<String> = use_signal(String::new);
-    let dl_data_msg: Signal<String> = use_signal(String::new);
-    let dl_blob_msg: Signal<String> = use_signal(String::new);
+    let dp = Dp::new();
 
     rsx! {
         document::Script { src: TEST1_JS }
@@ -43,37 +65,24 @@ pub fn Test1() -> Element {
                 accept: "image/*",
                 multiple: false,
                 onchange: move |evt| async move {
-                    input_file_onchange_(
-                            evt,
-                            filename,
-                            size,
-                            content_type,
-                            mime_type,
-                            img_src,
-                            dl_data_fnm,
-                            dl_data_src,
-                            dl_data_msg,
-                            dl_blob_msg,
-                        )
-                        .await;
+                    input_file_onchange_(evt, dp).await;
                 },
             }
-            div { "{filename}" }
-            div { "{size}" }
-            div { "{content_type}" }
-            div { "{mime_type}" }
+            div { "{dp.filename}" }
+            div { "{dp.size}" }
+            div { "{dp.content_type}" }
+            div { "{dp.mime_type}" }
             img {
                 id: "ig1",
-                src: "{img_src}",
+                src: "{dp.img_src}",
                 style: "max-width: 360px; margin-top: 20px; margin-left: 0;  margin-right: 0",
             }
             br {}
             // download link: asset file
             a {
                 id: "lnk1",
-                onclick: move |evt| async move {
+                onclick: move |_evt| async move {
                     download_file("lnk1").await;
-                    evt.stop_propagation();
                 },
                 download: "app.png",
                 href: APP_PNG,
@@ -83,49 +92,28 @@ pub fn Test1() -> Element {
             // download link: data
             a {
                 id: "lnk2",
-                onclick: move |evt| async move {
+                onclick: move |_evt| async move {
                     download_file("lnk2").await;
-                    evt.stop_propagation();
                 },
-                download: "{dl_data_fnm}",
-                href: "{dl_data_src}",
-                "{dl_data_msg}"
+                download: "{dp.dl_data_fnm}",
+                href: "{dp.dl_data_src}",
+                "{dp.dl_data_msg}"
             }
             br {}
             // download link: blob
             a {
                 id: "lnk3",
-                /*
-                onclick: move |evt| async move {
-                    download_file("lnk3").await;
-                    evt.stop_propagation();
-                },
-                */
                 target: "_blank",
-                onclick: move |evt| {
-                    evt.stop_propagation();
-                    spawn(async move{
-                        download_file("lnk3").await;
-                    });
+                onclick: move |_evt| async move {
+                    download_file("lnk3").await;
                 },
-                "{dl_blob_msg}"
+                "{dp.dl_blob_msg}"
             }
         }
     }
 }
 
-async fn input_file_onchange_(
-    evt: Event<FormData>,
-    mut filename: Signal<String>,
-    mut size: Signal<String>,
-    mut content_type: Signal<String>,
-    mut mime_type_sig: Signal<String>,
-    mut img_src: Signal<String>,
-    mut dl_data_fnm: Signal<String>,
-    mut dl_data_src: Signal<String>,
-    mut dl_data_msg: Signal<String>,
-    mut dl_blob_msg: Signal<String>,
-) {
+async fn input_file_onchange_(evt: Event<FormData>, mut dp: Dp) {
     use base64::{engine::general_purpose::STANDARD_NO_PAD, Engine as _};
     use dioxus::html;
     //
@@ -134,14 +122,14 @@ async fn input_file_onchange_(
         let file_data: &html::FileData = &v[0];
         let fnm = file_data.name();
         //
-        filename.set(format!("name: {}", fnm));
-        size.set(format!(
+        dp.filename.set(format!("name: {}", fnm));
+        dp.size.set(format!(
             "size: {:.1} kb",
             (file_data.size() as f64) / 1024.0
         ));
         let mime_type = {
             let mime_type = if let Some(s) = file_data.content_type() {
-                content_type.set(format!("content type: {}", s));
+                dp.content_type.set(format!("content type: {}", s));
                 s
             } else {
                 "".to_string()
@@ -163,7 +151,8 @@ async fn input_file_onchange_(
                 .to_string()
             }
         };
-        mime_type_sig.set(format!("mime type: {}", mime_type.clone()));
+        dp.mime_type
+            .set(format!("mime type: {}", mime_type.clone()));
         dioxus_logger::tracing::debug!("PASS: 0: {}", file_data.path().display());
         if let Ok(bytes) = file_data.read_bytes().await {
             let base64 = STANDARD_NO_PAD.encode(&bytes);
@@ -172,10 +161,10 @@ async fn input_file_onchange_(
             // <img src="data:[<mediatype>][;base64],<data>" alt="Base64 Image">
             //let data_url = format!("data:image/png;base64,{}", base64);
             let data_url = format!("data:{};base64,{}", mime_type, base64);
-            img_src.set(data_url.clone());
-            dl_data_fnm.set(fnm.clone());
-            dl_data_src.set(data_url.clone());
-            dl_data_msg.set("Download Link: Data".to_string());
+            dp.img_src.set(data_url.clone());
+            dp.dl_data_fnm.set(fnm.clone());
+            dp.dl_data_src.set(data_url.clone());
+            dp.dl_data_msg.set("Download Link: Data".to_string());
             //
             {
                 let js = format!(
@@ -186,7 +175,7 @@ async fn input_file_onchange_(
                     "lnk3"
                 );
                 let _ = document::eval(&js).await;
-                dl_blob_msg.set("Download Link: Blob".to_string());
+                dp.dl_blob_msg.set("Download Link: Blob".to_string());
             }
         }
     }

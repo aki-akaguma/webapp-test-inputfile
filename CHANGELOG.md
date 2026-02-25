@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * android-webview-params.toml
 
 ### Fixed
+* too many arguments
 * javascript: `setDataUrlToBlobLink()`
 
 

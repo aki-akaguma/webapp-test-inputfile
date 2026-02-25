@@ -31,30 +31,23 @@ fn main() {
         dioxus_fullstack::set_server_url(backend_url);
     }
 
-    // In the case of only release desktop, set a window title
-    #[cfg(all(not(debug_assertions), feature = "desktop"))]
+    // In the case of only desktop
+    #[cfg(feature = "desktop")]
     dioxus::LaunchBuilder::new()
-        .with_cfg(
-            Config::default().with_menu(None).with_window(
+        .with_cfg({
+            let cnf = Config::default().with_window(
                 WindowBuilder::new()
                     .with_maximized(false)
                     .with_title("Test for input type=file"),
-            ),
-        )
-        .launch(App);
-    #[cfg(all(debug_assertions, feature = "desktop"))]
-    dioxus::LaunchBuilder::new()
-        .with_cfg(
-            Config::default().with_window(
-                WindowBuilder::new()
-                    .with_maximized(false)
-                    .with_title("Test for input type=file"),
-            ),
-        )
+            );
+            #[cfg(not(debug_assertions))]
+            let cnf = cnf.with_menu(None);
+            cnf
+        })
         .launch(App);
 
     // In the other case, simple launch app
-    #[cfg(any(debug_assertions, not(feature = "desktop")))]
+    #[cfg(not(feature = "desktop"))]
     dioxus::launch(App);
 }
 
