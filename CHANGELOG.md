@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
+* `android-versionCode-inc` into Makefile
 * download link: blob
 * download link: data
 * download link: asset file

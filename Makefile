@@ -15,6 +15,13 @@ clean:
 apply-patch:
 	cargo patch-crate
 
+android-versionCode:
+	cat resources/android/versionCode
+
+android-versionCode-inc:
+	vc=$$(cat resources/android/versionCode);vc=$$(($$vc + 1));echo $$vc > resources/android/versionCode
+	cat resources/android/versionCode
+
 bundle-web:
 	dx bundle --web --release --base-path "/test-inputfile"
 
