@@ -1,6 +1,6 @@
-function setDataToBlobLink(base64Data, fileName, mimeType, linkId) {
+function setDataUrlToBlobLink(base64DataUrl, mimeType, fileName, linkId) {
     // 1. Extract only pure data part from Base64
-    const byteCharacters = atob(base64Data.split(',')[1]);
+    const byteCharacters = atob(base64DataUrl.split(',')[1]);
     const byteNumbers = new Array(byteCharacters.length);
     for (let i = 0; i < byteCharacters.length; i++) {
         byteNumbers[i] = byteCharacters.charCodeAt(i);
@@ -31,3 +31,5 @@ function setDataToBlobLink(base64Data, fileName, mimeType, linkId) {
     window.URL.revokeObjectURL(url);
     */
 }
+// dummy call for minify
+setDataUrlToBlobLink('','','','');

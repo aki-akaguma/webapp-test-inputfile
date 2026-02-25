@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
 
 const APP_PNG: Asset = asset!("/assets/app.png");
-const TEST1_JS: Asset = asset!("/assets/js/test1.js", AssetOptions::js().with_minify(false));
+const TEST1_JS: Asset = asset!("/assets/js/test1.js", AssetOptions::js().with_minify(true));
 
 #[component]
 pub fn Test1() -> Element {
@@ -131,10 +131,10 @@ async fn input_file_onchange_(
             //
             {
                 let js = format!(
-                    "setDataToBlobLink('{}','{}', '{}', '{}');",
+                    "setDataUrlToBlobLink('{}','{}','{}','{}');",
                     data_url,
-                    file_data.name(),
                     mime_type,
+                    file_data.name(),
                     "lnk3"
                 );
                 let _ = document::eval(&js).await;
