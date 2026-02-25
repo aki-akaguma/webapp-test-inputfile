@@ -1,5 +1,5 @@
 use dioxus::prelude::*;
-#[cfg(all(not(debug_assertions), feature = "desktop"))]
+#[cfg(feature = "desktop")]
 use dioxus_desktop::{Config, WindowBuilder};
 
 mod components;
@@ -36,6 +36,16 @@ fn main() {
     dioxus::LaunchBuilder::new()
         .with_cfg(
             Config::default().with_menu(None).with_window(
+                WindowBuilder::new()
+                    .with_maximized(false)
+                    .with_title("Test for input type=file"),
+            ),
+        )
+        .launch(App);
+    #[cfg(all(debug_assertions, feature = "desktop"))]
+    dioxus::LaunchBuilder::new()
+        .with_cfg(
+            Config::default().with_window(
                 WindowBuilder::new()
                     .with_maximized(false)
                     .with_title("Test for input type=file"),
