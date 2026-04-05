@@ -46,3 +46,8 @@ server = ["dioxus/server"]
 desktop_dep = ["dep:rfd", "dep:anyhow", "dep:serde","dep:serde_json"]
 
 debian_build = []
+
+[profile.release]
+# Tell `rustc` to optimize for small code size.
+opt-level = "s"
+lto = true
