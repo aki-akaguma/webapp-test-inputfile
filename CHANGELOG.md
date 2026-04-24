@@ -7,7 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Changed
-* updated crates: dioxus(0.7.5)
+* I reorganized the dependencies in `Cargo.toml`.
+* update crate: dioxus(0.7.6)
 
 ### Fixed
 * `dx bundle --desktop --release --package-types appimage` on `Makefile`

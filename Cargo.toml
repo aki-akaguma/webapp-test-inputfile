@@ -17,17 +17,23 @@ repository = "https://github.com/aki-akaguma/webapp-test-inputfile"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-dioxus = { version = "0.7.5", features = ["fullstack"] }
-dioxus-desktop = { version = "0.7.5", optional = true }
-dioxus-logger = "0.7.4"
-console_error_panic_hook = "0.1"
+# dioxus family
+dioxus = { version = "0.7.6", features = ["fullstack"] }
+dioxus-desktop = { version = "0.7.6", optional = true }
 
-base64 = "0.22.1"
+# what dioxus depends on
 
+# what dioxus depends on, optional
 anyhow = { version = "1.0", optional = true }
-rfd = { version = "0.17.2", optional = true }
 serde = { version = "1.0", features = ["derive"], optional = true }
+
+# other, optional
+console_error_panic_hook = { version = "0.1", optional = true }
+rfd = { version = "0.17.2", optional = true }
 serde_json = { version = "1.0", optional = true }
+
+# other
+base64 = "0.22.1"
 
 [target.'cfg(target_os = "android")'.dependencies]
 openssl = { version = "0.10", features = ["vendored"] }
@@ -38,7 +44,7 @@ rust-version-info-file = "0.2"
 [features]
 default = []
 
-web = ["dioxus/web"]
+web = ["dioxus/web", "dep:console_error_panic_hook"]
 desktop = ["dioxus/desktop", "dep:dioxus-desktop", "desktop_dep"]
 mobile = ["dioxus/mobile"]
 server = ["dioxus/server"]

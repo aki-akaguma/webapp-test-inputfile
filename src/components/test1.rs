@@ -153,7 +153,7 @@ async fn input_file_onchange_(evt: Event<FormData>, mut dp: Dp) {
         };
         dp.mime_type
             .set(format!("mime type: {}", mime_type.clone()));
-        dioxus_logger::tracing::debug!("PASS: 0: {}", file_data.path().display());
+        dioxus::logger::tracing::debug!("PASS: 0: {}", file_data.path().display());
         if let Ok(bytes) = file_data.read_bytes().await {
             let base64 = STANDARD_NO_PAD.encode(&bytes);
             //
@@ -186,13 +186,13 @@ async fn download_file(_id: &str) {}
 
 #[cfg(feature = "desktop")]
 async fn download_file(id: &str) {
-    //dioxus_logger::tracing::debug!("data: {:?}", evt.data());
+    //dioxus::logger::tracing::debug!("data: {:?}", evt.data());
     let js = format!(r#"{{return getAnchorsDownloadHref('{}');}}"#, id);
     let v = document::eval(&js).await.unwrap();
     let s = v.to_string();
     let anchorinfo = AnchorInfo::from_json_str(&s).unwrap();
     let filename = anchorinfo.download.unwrap();
-    dioxus_logger::tracing::debug!("filename: {filename}");
+    dioxus::logger::tracing::debug!("filename: {filename}");
     if let Some(path) = rfd::FileDialog::new().set_file_name(filename).save_file() {
         let content = anchorinfo.href.unwrap();
         let is_data = content.starts_with("data:");
