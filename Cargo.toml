@@ -2,7 +2,7 @@
 name = "test-inputfile"
 version = "0.1.4"
 authors = ["aki <aki.akaguma@hotmail.com>"]
-edition = "2021"
+edition = "2024"
 description = """
 This is a webapp that provides test for input type=file.
 """
