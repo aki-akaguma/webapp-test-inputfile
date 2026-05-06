@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * update to 2024 edition
 * update crate: dioxus(0.7.7)
 
+### Fixed
+* `clippy::let\_and\_return`
+
 
 ## [0.1.4] (2026-04-27)
 ### Changed

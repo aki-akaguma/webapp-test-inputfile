@@ -201,8 +201,7 @@ async fn download_file(id: &str) {
             let data_url = if is_blob {
                 let js = format!(r#"{{parseBlobData_dxsend('{}');}}"#, content);
                 let mut eval = document::eval(&js);
-                let data_url = eval.recv::<String>().await.unwrap();
-                data_url
+                eval.recv::<String>().await.unwrap()
             } else {
                 content
             };
